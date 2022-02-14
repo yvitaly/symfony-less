@@ -1,0 +1,85 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello ProductController!{% endblock %}
+
+{% block body %}
+<style>
+    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
+    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
+</style>
+
+<div class="example-wrapper">
+    <h1>Hello {{ controller_name }}! ✅</h1>
+
+    This friendly message is coming from:
+    <ul>
+        <li>Your controller at <code><a href="{{ 'C:/xampp/htdocs/symfony-less/symfony_les/src/Controller/ProductController.php'|file_link(0) }}">src/Controller/ProductController.php</a></code></li>
+        <li>Your template at <code><a href="{{ 'C:/xampp/htdocs/symfony-less/symfony_les/templates/product/index.html.twig'|file_link(0) }}">templates/product/index.html.twig</a></code></li>
+    </ul>
+</div>
+
+<div class="container-fluid">
+    {{ dump(products) }}
+    <form method="get">
+        <input type="text" name="searchfor" value="{{ searchfor }}" />
+        <button> Search </button>
+    </form>
+    <table class="table table-dark table-striped">
+        <thead>
+        <tr>
+            <th scope="col">user</th>
+            <th scope="col">name
+                <a class="btn btn-primary" role="button" href="http://127.0.0.1:8000/products/name/desc/100"> &#9660; </a>
+                <a class="btn btn-primary" role="button" href="http://127.0.0.1:8000/products/name/asc/100"> &#9650;</a>
+            </th>
+            <th scope="col">maker
+                <a class="btn btn-primary" role="button" href="http://127.0.0.1:8000/products/maker/desc/100"> &#9660; </a>
+                <a class="btn btn-primary" role="button" href="http://127.0.0.1:8000/products/maker/asc/100"> &#9650;</a>
+            </th>
+            <th scope="col">price
+                <a class="btn btn-primary" role="button" href="http://127.0.0.1:8000/products/price/desc/100"> &#9660; </a>
+                <a class="btn btn-primary" role="button" href="http://127.0.0.1:8000/products/price/asc/100"> &#9650;</a>
+            </th>
+            <th scope="col">qty</th>
+            <th scope="col">create date</th>
+            <th scope="col">update date</th>
+            <th scope="col"></th>
+            <th scope="col"></th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for product_item in products %}
+        <tr>
+            <th scope="row"> {{ product_item.user.email }}</th>
+            <td> {{ product_item.name }} </td>
+            <td>{{ product_item.maker}}</td>
+            <td>{{ product_item.price|format_currency('USD')}}</td>
+            <td>{{ product_item.qty}}</td>
+            <td>{{ product_item.createDate|date("m/d/Y")}}</td>
+            <td>{{ product_item.updateDate|date("m/d/Y")}}</td>
+            <td><a href="/product/edit/{{ product_item.id }}">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil" viewBox="0 0 16 16">
+                        <path d="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168l10-10zM11.207 2.5 13.5 4.793 14.793 3.5 12.5 1.207 11.207 2.5zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293l6.5-6.5zm-9.761 5.175-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325z"/>
+                    </svg>
+                </a></td>
+            <td><a href="/product/delete/{{ product_item.id }}">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
+                        <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"/>
+                        <path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"/>
+                    </svg>
+                </a></td>
+
+        </tr>
+        {% endfor %}
+    </table>
+    <a role="button" class="btn btn-success" href="/product/add"> Add new product
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-file-plus-fill" viewBox="0 0 16 16">
+            <path d="M12 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2zM8.5 6v1.5H10a.5.5 0 0 1 0 1H8.5V10a.5.5 0 0 1-1 0V8.5H6a.5.5 0 0 1 0-1h1.5V6a.5.5 0 0 1 1 0z"/>
+        </svg>
+    </a>
+    </div>
+
+{% endblock %}
+
+
+
