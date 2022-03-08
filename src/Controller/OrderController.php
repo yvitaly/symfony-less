@@ -23,10 +23,9 @@ class OrderController extends AbstractController
     {
 
         //$orderr = new Order();
-        $orders = $this->getDoctrine()
+                $orders = $this->getDoctrine()
             ->getRepository(Order::class)
             ->findByDate($startBy, $endBy);
-
 
         return $this->render('order/index.html.twig', [
             'controller_name' => 'OrderController',

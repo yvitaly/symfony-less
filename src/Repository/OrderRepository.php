@@ -39,13 +39,15 @@ class OrderRepository extends ServiceEntityRepository
 
     public function findByDate($startBy, $endBy)
     {
-       return $this->createQueryBuilder('o')
+
+      return $this->createQueryBuilder('o')
             ->setParameter('start', $startBy)
             ->setParameter('end', $endBy)
             ->andWhere('o.salesDate > :start' )
             ->andWhere('o.salesDate < :end')
             ->getQuery()
             ->execute();
+
     }
 
 }
