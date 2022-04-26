@@ -33,13 +33,12 @@ class UserType extends AbstractType
                 ,
                     'multiple' => true,
                     'required' => true,
-                )
-            )
+                ))
             ->add('password')
             ->add('firsName')
             ->add('lastName')
-            ->add('save', SubmitType::class , array(
-                'label'=>'Save'
+            ->add('save', SubmitType::class, array(
+                'label' => 'Save'
             ))
             //->add('orders')
         ;

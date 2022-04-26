@@ -17,34 +17,31 @@ class UserController extends AbstractController
      * @Route("/user", name="user")
      */
 
-public function index(Request $request): Response
+    public function index(Request $request): Response
     {
         $user = new User();
         $searchfor = $request->query->get('searchfor');
-        if ($searchfor){
-            $users = $this->getDoctrine()->getRepository(User::class)->findBy(['email'=>$searchfor]);
-        }
-        else {
+        if ($searchfor) {
+            $users = $this->getDoctrine()->getRepository(User::class)->findBy(['email' => $searchfor]);
+        } else {
             $users = $this->getDoctrine()->getRepository(User::class)->findAll();
         }
         $form = $this->createForm(UserType::class, $user);
 
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-
             $em = $this->getDoctrine()->getManager();
             $em->persist($user);
             $em->flush();
 
             return $this->redirectToRoute('user');
-
         }
 
         return $this->render('user/index.html.twig', [
             'controller_name' => 'UserController',
             'form' => $form->createView(),
-            'users'=>$users,
-            'searchfor'=>$searchfor
+            'users' => $users,
+            'searchfor' => $searchfor
         ]);
 
 
@@ -72,7 +69,6 @@ public function index(Request $request): Response
         $form = $this->createForm(UserType::class, $user);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-
             $em = $this->getDoctrine()->getManager();
             $em->persist($user);
             $em->flush();
@@ -99,19 +95,17 @@ public function index(Request $request): Response
 
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-
             $em = $this->getDoctrine()->getManager();
             $em->persist($user);
             $em->flush();
 
             return $this->redirectToRoute('user');
-
         }
 
         return $this->render('user/add.html.twig', [
             'controller_name' => 'UserController',
             'form' => $form->createView(),
-            'users'=>$users
+            'users' => $users
         ]);
     }
 
@@ -130,7 +124,4 @@ public function index(Request $request): Response
 
             return $this->redirectToRoute('user');
     }
-
-
-
 }

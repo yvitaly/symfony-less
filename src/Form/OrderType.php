@@ -18,13 +18,13 @@ class OrderType extends AbstractType
             ->add('saler')
             ->add('salesDate')
             ->add('isPaid')
-            ->add('user',  EntityType::class, [
-                'label'=>'User',
-                'class'=>User::class,
-                'choice_label'=>'email'
+            ->add('user', EntityType::class, [
+                'label' => 'User',
+                'class' => User::class,
+                'choice_label' => 'email'
             ])
-            ->add('save', SubmitType::class , array(
-                'label'=>'Save'
+            ->add('save', SubmitType::class, array(
+                'label' => 'Save'
             ))
         ;
     }

@@ -22,12 +22,12 @@ class ProductType extends AbstractType
             ->add('createDate')
             ->add('updateDate')
             ->add('user', EntityType::class, [
-                'label'=>'User',
-                'class'=>User::class,
-                'choice_label'=>'email'
+                'label' => 'User',
+                'class' => User::class,
+                'choice_label' => 'email'
             ])
-            ->add('save', SubmitType::class , array(
-                'label'=>'Save'
+            ->add('save', SubmitType::class, array(
+                'label' => 'Save'
             ))
         ;
     }

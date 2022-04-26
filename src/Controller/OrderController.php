@@ -19,7 +19,7 @@ class OrderController extends AbstractController
      */
 
 
-    public function dateSort(string $startBy  = '01-01-2017', string $endBy = '01-01-19'): Response
+    public function dateSort(string $startBy = '01-01-2017', string $endBy = '01-01-19'): Response
     {
 
         //$orderr = new Order();
@@ -29,7 +29,7 @@ class OrderController extends AbstractController
 
         return $this->render('order/index.html.twig', [
             'controller_name' => 'OrderController',
-            'orders'=>$orders
+            'orders' => $orders
         ]);
     }
 
@@ -56,7 +56,7 @@ class OrderController extends AbstractController
         return $this->render('order/index.html.twig', [
             'controller_name' => 'OrderController',
             'form' => $form->createView(),
-            'orders'=>$orders
+            'orders' => $orders
         ]);
     }
 
@@ -84,7 +84,7 @@ class OrderController extends AbstractController
         return $this->render('order/add.html.twig', [
             'controller_name' => 'OrderController',
             'form' => $form->createView(),
-            'orders'=>$orders
+            'orders' => $orders
         ]);
     }
 
@@ -98,7 +98,6 @@ class OrderController extends AbstractController
         $form = $this->createForm(OrderType::class, $order);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-
             $em = $this->getDoctrine()->getManager();
             $em->persist($order);
             $em->flush();
@@ -135,7 +134,7 @@ class OrderController extends AbstractController
      */
 
 
-    public function list(string $orderBy  = 'saler', string $order = 'asc', int $limit = 100): Response
+    public function list(string $orderBy = 'saler', string $order = 'asc', int $limit = 100): Response
     {
 
         //$orderr = new Order();
@@ -145,10 +144,7 @@ class OrderController extends AbstractController
 
         return $this->render('order/index.html.twig', [
             'controller_name' => 'OrderController',
-            'orders'=>$orders
+            'orders' => $orders
         ]);
     }
-
-
-
 }

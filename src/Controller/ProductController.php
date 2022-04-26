@@ -22,11 +22,9 @@ class ProductController extends AbstractController
         $product = new Product();
 
         $searchfor = $request->query->get('searchfor');
-        if ($searchfor){
-            $products = $this->getDoctrine()->getRepository(Product::class)->findBy(['name'=>$searchfor]);
-        }
-        else {
-
+        if ($searchfor) {
+            $products = $this->getDoctrine()->getRepository(Product::class)->findBy(['name' => $searchfor]);
+        } else {
             $products = $this->getDoctrine()->getRepository(Product::class)->findAll();
         }
 
@@ -45,8 +43,8 @@ class ProductController extends AbstractController
         return $this->render('product/index.html.twig', [
             'controller_name' => 'ProductController',
             'form' => $form->createView(),
-            'products'=>$products,
-            'searchfor'=>$searchfor
+            'products' => $products,
+            'searchfor' => $searchfor
         ]);
     }
 
@@ -54,7 +52,7 @@ class ProductController extends AbstractController
     /**
      * @Route("/products/{orderBy}/{order}/{limit}", name="products")
      */
-    public function list(Request $request, string $orderBy  = 'name', string $order = 'asc', int $limit = 100 ): Response
+    public function list(Request $request, string $orderBy = 'name', string $order = 'asc', int $limit = 100): Response
     {
         $product = new Product();
         $searchfor = $request->query->get('searchfor');
@@ -64,8 +62,8 @@ class ProductController extends AbstractController
 
         return $this->render('product/list.html.twig', [
             'controller_name' => 'ProductController',
-            'products'=>$products,
-            'searchfor'=>$searchfor
+            'products' => $products,
+            'searchfor' => $searchfor
         ]);
     }
     /**
@@ -77,7 +75,6 @@ class ProductController extends AbstractController
         $form = $this->createForm(ProductType::class, $product);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-
             $em = $this->getDoctrine()->getManager();
             $em->persist($product);
             $em->flush();
@@ -115,7 +112,7 @@ class ProductController extends AbstractController
         return $this->render('product/add.html.twig', [
             'controller_name' => 'ProductController',
             'form' => $form->createView(),
-            'products'=>$products
+            'products' => $products
         ]);
     }
     /**
@@ -133,7 +130,4 @@ class ProductController extends AbstractController
 
         return $this->redirectToRoute('products');
     }
-
-
 }
-

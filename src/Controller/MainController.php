@@ -24,19 +24,17 @@ class MainController extends AbstractController
 
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-
             $em = $this->getDoctrine()->getManager();
             $em->persist($user);
             $em->flush();
 
             return $this->redirectToRoute('user');
-
         }
 
         return $this->render('main/index.html.twig', [
             'controller_name' => 'MainController',
             'form' => $form->createView(),
-            'users'=>$users
+            'users' => $users
         ]);
     }
     /**
@@ -52,19 +50,17 @@ class MainController extends AbstractController
 
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-
             $em = $this->getDoctrine()->getManager();
             $em->persist($user);
             $em->flush();
 
             return $this->redirectToRoute('user');
-
         }
 
         return $this->render('main/index.html.twig', [
             'controller_name' => 'MainController',
             'form' => $form->createView(),
-            'users'=>$users
+            'users' => $users
         ]);
     }
 }
