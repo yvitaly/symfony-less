@@ -1,0 +1,39 @@
+
+
+{% block title %}Your order{% endblock %}
+
+{% block body %}
+    <style>
+        .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
+        .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
+    </style>
+
+
+
+
+        <table class="table table-dark table-striped">
+
+            <thead>
+                <tr>
+                    <th scope="col">Order id</th>
+                    <th scope="col">Item</th>
+                    <th scope="col">Quantity</th>
+                    <th scope="col"> Email </th>
+                </tr>
+            </thead>
+
+            <tbody>
+            {% for order_item in order.orderItems %}
+                <tr>
+                    <th scope="row"> {{ order.id }}</th>
+                    <th scope="row"> {{ order_item.product.name}}</th>
+                    <th scope="row"> {{ order_item.qty }}</th>
+                    <th scope="row"> {{ order.user.email }}</th>
+                </tr>
+
+            {% endfor %}
+        </table>
+
+
+
+{% endblock %}
