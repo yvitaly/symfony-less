@@ -11,6 +11,8 @@ use Symfony\Component\Routing\Annotation\Route;
 use Doctrine\ORM\EntityManagerInterface;
 use App\Repository\OrderRepository;
 use Doctrine\ORM\EntityRepository;
+use Dompdf\Dompdf;
+use Dompdf\Options;
 
 class OrderController extends AbstractController
 {
@@ -32,6 +34,8 @@ class OrderController extends AbstractController
             'orders' => $orders
         ]);
     }
+
+
 
     /**
      * @Route("/order", name="order")
@@ -128,6 +132,65 @@ class OrderController extends AbstractController
 
         return $this->redirectToRoute('order');
     }
+
+    /**
+     * @Route("/order/download/{id}", name="download")
+     */
+
+    public function download(Order $order)
+    {
+
+
+
+        $orders = $this->getDoctrine()->getRepository(Order::class)->findAll();
+
+        // Configure Dompdf according to your needs
+        $pdfOptions = new Options();
+        $pdfOptions->set('defaultFont', 'Arial');
+
+        // Instantiate Dompdf with our options
+        $dompdf = new Dompdf($pdfOptions);
+
+        // Retrieve the HTML generated in our twig file
+        $html = $this->renderView('order/orderInfo.html.twig', [
+            'controller_name' => 'OrderController',
+            'order' => $order ,
+            'title' => "Welcome to our PDF Test"
+        ]);
+
+        // Load HTML to Dompdf
+        $dompdf->loadHtml($html);
+
+        // (Optional) Setup the paper size and orientation 'portrait' or 'portrait'
+        $dompdf->setPaper('A4', 'portrait');
+
+        // Render the HTML as PDF
+        $dompdf->render();
+
+        // Output the generated PDF to Browser (force download)
+        $dompdf->stream("mypdf.pdf", [
+            "Attachment" => true
+        ]);
+    }
+
+    /**
+     * @Route("/order/view/{id}", name="view")
+     */
+
+    public function view(Order $order)
+    {
+        $orders = $this->getDoctrine()->getRepository(Order::class)->findAll();
+
+        // Retrieve the HTML generated in our twig file
+        return  $this->render('order/orderInfo.html.twig', [
+            'controller_name' => 'OrderController',
+            'order' => $order ,
+            'title' => "Welcome to our PDF Test"
+        ]);
+
+
+    }
+
 
     /**
      * @Route("/order/filter/{orderBy}/{order}/{limit}", name="order-list")
